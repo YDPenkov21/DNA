@@ -4,4 +4,8 @@ C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(11,23): warni
 C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(11,20): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(22,17): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
 C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(25,34): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(57,45): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(58,45): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(60,49): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(76,57): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
   main.vcxproj -> C:\Users\HP\OneDrive\Работен плот\DNA\src\x64\Debug\main.exe
