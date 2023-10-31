@@ -1,9 +1,15 @@
 ﻿  main.cpp
-C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(31,23): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(31,20): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(70,45): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(71,45): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(73,49): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(93,61): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(99,61): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(47,23): warning C4244: 'argument': conversion from 'const float' to 'int', possible loss of data
+C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(47,20): warning C4244: 'argument': conversion from 'const float' to 'int', possible loss of data
+C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(86,36): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(87,36): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(89,40): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(94,45): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(95,45): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(97,49): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(118,58): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(119,54): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(120,54): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(130,61): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(136,61): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
   main.vcxproj -> C:\Users\HP\OneDrive\Работен плот\DNA\src\x64\Debug\main.exe

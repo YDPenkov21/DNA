@@ -1,10 +1,26 @@
 ﻿#include <vector>
 #include "raylib.h"
 
+Color sky_c = Color { 85, 111, 122, 255 };
+Color cloud_c = Color { 94, 94, 94, 255};
+Color raindrop_c = Color { 177, 230, 54, 255 };
+
 const int screenWidth = 1920;
 const int screenHeight = 975;
-const int maxRaindrops = 100;
+const int maxRaindrops = 90;
+const int maxClouds = 5;
 bool pause = false;
+
+class Cloud {
+public:
+    Vector2 position;
+    Vector2 size;
+    Color color;
+    float speed;
+};
+
+std::vector<Cloud> clouds;
+Cloud cloud;
 
 class Raindrop {
 public:
@@ -12,7 +28,7 @@ public:
     Color color;
     float speed;
 
-    Rectangle getCollisionRectangle() {
+    const Rectangle getCollisionRectangle() const {
         return { position.x, position.y, 1, 1 };
     }
 };
@@ -27,17 +43,18 @@ public:
     int speedX;
     float radius;
 
-    void draw() {
+    const void draw() const {
         DrawCircle(x, y, radius, WHITE);
     }
 
-    void update() {
+    const void update() {
         if (IsKeyDown(KEY_LEFT)) {
             x -= speedX;
         }
         else if (IsKeyDown(KEY_RIGHT)) {
             x += speedX;
         }
+
         if (x - radius <= 0) {
             x = radius;
         }
@@ -45,32 +62,39 @@ public:
             x = GetScreenWidth() - radius;
         }
     }
-    Rectangle getBirdCollisionRectangle() {
+    const Rectangle getBirdCollisionRectangle() const {
         return { x - radius, y - radius, radius * 2, radius * 2 };
     }
 };
 
-Bird bird;
-
-bool checkCollisionBirdRain(Bird& bird, Raindrop& raindrop) {
+const bool checkCollisionBirdRain(Bird& bird, Raindrop& raindrop) {
     return CheckCollisionRecs(bird.getBirdCollisionRectangle(), raindrop.getCollisionRectangle());
 }
+
+Bird bird;
 
 int main() {
     bird.x = screenWidth / 2;
     bird.y = screenHeight - 75;
     bird.speedX = 10;
-    bird.radius = 20;
+    bird.radius = 25;
 
     InitWindow(screenWidth, screenHeight, "Flappy Quiz");
     SetTargetFPS(60);
-    
 
-    for (int i = 0; i < maxRaindrops; i++) {
+	for (size_t i = 0; i < maxClouds; i++) {
+		cloud.position.x = GetRandomValue(0, screenWidth);
+		cloud.position.y = GetRandomValue(0, screenHeight);
+		cloud.color = cloud_c;
+		cloud.speed = GetRandomValue(45, 50) * 0.1;
+		clouds.push_back(cloud);
+	}
+
+    for (size_t i = 0; i < maxRaindrops; i++) {
         raindrop.position.x = GetRandomValue(0, screenWidth);
         raindrop.position.y = GetRandomValue(0, screenHeight);
-        raindrop.color = YELLOW;
-        raindrop.speed = GetRandomValue(40, 42) * 0.1;
+        raindrop.color = raindrop_c;
+        raindrop.speed = GetRandomValue(45, 50) * 0.1;
         raindrops.push_back(raindrop);
     }
 
@@ -78,13 +102,26 @@ int main() {
 
         BeginDrawing();
 
-        ClearBackground(SKYBLUE);
+        ClearBackground(sky_c);
 
         DrawFPS(15, 15);
 
         bird.update();
 
         if (!pause) {
+
+            for (size_t i = 0; i < clouds.size(); i++) {
+                clouds[i].position.y += clouds[i].speed;
+
+                if (clouds[i].position.y > screenHeight) {
+                    clouds[i].position.y = 0;
+                    clouds[i].position.x = GetRandomValue(0, screenWidth);
+                    clouds[i].size.y = GetRandomValue(200, 250);
+                    clouds[i].size.x = GetRandomValue(220, 270);
+                }
+                DrawRectangleV(clouds[i].position, clouds[i].size, cloud_c);
+            }
+
             for (size_t i = 0; i < raindrops.size(); i++) {
                 raindrops[i].position.y += raindrops[i].speed;
 
@@ -102,9 +139,9 @@ int main() {
             }
         }
         if (pause) {
-            DrawText("TEST YOUR KNOWLEDGE!", screenWidth / 2 - 650, screenHeight - 620 , 100, BLACK);
-            DrawText("ANSWER A QUESTION TO SAVE YOURSELF!", screenWidth / 2 - 820 , screenHeight - 470, 75, BLACK);
-			DrawText("THE QUESTION WILL APPEAR ON THE CONSOLE.", screenWidth / 2 - 640, screenHeight - 350, 50, BLACK);
+            DrawText("TEST YOUR KNOWLEDGE!", screenWidth / 2 - 650, screenHeight - 620, 100, BLACK);
+            DrawText("ANSWER A QUESTION TO SAVE YOURSELF!", screenWidth / 2 - 820, screenHeight - 470, 75, BLACK);
+            DrawText("THE QUESTION WILL APPEAR ON THE CONSOLE.", screenWidth / 2 - 640, screenHeight - 350, 50, BLACK);
         }
         else {
             bird.draw();
