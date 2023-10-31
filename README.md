@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 <p align="center">
      <img align="center" src="https://cdn.discordapp.com/attachments/1089602486270181386/1168250544922558554/DNA_no_bg.png?ex=6551151a&is=653ea01a&hm=350ce487053c6a04f1eb29d67e04a98bd967a38ae75b1402959ea62110bde7d5&" width="550", height="350">
 </p>
@@ -9,7 +7,7 @@
     
 <hr>
     <h4 align="center">We are team DNA and we want to show you our game:</h4>
-    <h2 align="center">"Name to be decided"</h2>
+    <h2 align="center">"Flappy Quiz"</h2>
 <hr>
     
 <p align="center">
@@ -38,8 +36,9 @@
 <h2 id="about-the-project">About The Project</h2>
     
 <p align="justify">
-    Our game is called "To be decided" and the information about it is about to be created.
+    Our game is called 'Flappy Quiz,' where you guide a bird through the sky. However, an unusual challenge arises when acid rain begins to fall. This acid rain results from certain acidic pollutants mixing with regular raindrops due to human-induced air pollution. Your mission is to navigate the bird safely through this toxic downpour, avoiding acid raindrops. If your bird gets hit, you'll face an educational twist – a question related to ecology, biology, or chemistry. A correct answer revives your feathered friend, allowing you to continue your journey. An incorrect answer leads to defeat, but you can always try again. The goal is to survive as long as possible, BUT the main objective is enhancing your knowledge of these often challenging subjects. Our game transforms learning into an enjoyable and addictive adventure. Thank you and enjoy learning!
 </p>
+<p> - The DNA Team ❤️</p>
     
     
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
@@ -105,7 +104,6 @@
 <pre>https://github.com/YDPenkov21/DNA.git</pre>
     
 <h3 align="center"> Thank you and enjoy playing our game! <h3>
-<h4 align="center"> Made with ❤️ & C++ </h4>
+<h4 align="center"> Made with ❤️, C++ & Raylib </h4>
 <hr>
 <h4 align="center"> Created by team DNA | &copy 2023 All rights reserved.</h4>
->>>>>>> 86be6ad277fbac37613061d69753043df12248b9
