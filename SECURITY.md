@@ -8,4 +8,4 @@
 
 ## Reporting a Vulnerability
 
-To report a vulnerability you can contact us on this email: <a href="mailto:YDPenkov21@codingburgas.bg">YDPenkov21@codingburgas.bg</a>, (The email the Scrum Trainer of Team DNA).
+To report a vulnerability you can contact us on this email: <a href="mailto:YDPenkov21@codingburgas.bg">YDPenkov21@codingburgas.bg</a>, (The email of the Scrum Trainer of Team DNA).
