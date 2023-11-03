@@ -1,5 +1,6 @@
 ﻿#include <vector>
 #include "raylib.h"
+#include "questionBank.h"
 
 Color sky_c = Color { 85, 111, 122, 255 };
 Color cloud_c = Color { 94, 94, 94, 255};
@@ -7,7 +8,7 @@ Color raindrop_c = Color { 177, 230, 54, 255 };
 
 const int screenWidth = 1920;
 const int screenHeight = 975;
-const int maxRaindrops = 90;
+const int maxRaindrops = 75;
 const int maxClouds = 5;
 bool pause = false;
 
@@ -86,7 +87,7 @@ int main() {
 		cloud.position.x = GetRandomValue(0, screenWidth);
 		cloud.position.y = GetRandomValue(0, screenHeight);
 		cloud.color = cloud_c;
-		cloud.speed = GetRandomValue(45, 50) * 0.1;
+		cloud.speed = GetRandomValue(40, 50) * 0.1;
 		clouds.push_back(cloud);
 	}
 
@@ -94,7 +95,7 @@ int main() {
         raindrop.position.x = GetRandomValue(0, screenWidth);
         raindrop.position.y = GetRandomValue(0, screenHeight);
         raindrop.color = raindrop_c;
-        raindrop.speed = GetRandomValue(45, 50) * 0.1;
+        raindrop.speed = GetRandomValue(50, 55) * 0.1;
         raindrops.push_back(raindrop);
     }
 
@@ -104,12 +105,12 @@ int main() {
 
         ClearBackground(sky_c);
 
-        DrawFPS(15, 15);
+        DrawFPS(15, 20);
 
         bird.update();
 
         if (!pause) {
-
+            float currentTime = GetTime();
             for (size_t i = 0; i < clouds.size(); i++) {
                 clouds[i].position.y += clouds[i].speed;
 
@@ -137,6 +138,7 @@ int main() {
                 }
                 DrawCircleV(raindrops[i].position, 10, raindrops[i].color);
             }
+            DrawText(TextFormat("%.2f", currentTime), 30, 45, 100, YELLOW);
         }
         if (pause) {
             DrawText("TEST YOUR KNOWLEDGE!", screenWidth / 2 - 650, screenHeight - 620, 100, BLACK);
