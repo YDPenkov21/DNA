@@ -1,16 +1,1 @@
-﻿  main.cpp
-C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(48,23): warning C4244: 'argument': conversion from 'const float' to 'int', possible loss of data
-C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(48,20): warning C4244: 'argument': conversion from 'const float' to 'int', possible loss of data
-C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(87,36): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(88,36): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(90,40): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(95,45): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(96,45): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(98,49): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(113,31): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(119,58): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(120,54): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(121,54): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(131,61): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\HP\OneDrive\Работен плот\DNA\src\main\main.cpp(137,61): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-  main.vcxproj -> C:\Users\HP\OneDrive\Работен плот\DNA\src\x64\Debug\main.exe
+﻿  main.vcxproj -> C:\Users\krist\Desktop\DNA\src\x64\Debug\main.exe
