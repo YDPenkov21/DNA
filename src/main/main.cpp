@@ -1,16 +1,19 @@
-﻿#include <vector>
+﻿#include <iostream>
+#include <iomanip>
+#include <vector>
 #include "raylib.h"
 #include "questionBank.h"
 
-Color sky_c = Color { 85, 111, 122, 255 };
-Color cloud_c = Color { 94, 94, 94, 255};
-Color raindrop_c = Color { 177, 230, 54, 255 };
+Color sky_c = Color{ 85, 111, 122, 255 };
+Color cloud_c = Color{ 94, 94, 94, 255 };
+Color raindrop_c = Color{ 177, 230, 54, 255 };
 
 const int screenWidth = 1920;
 const int screenHeight = 975;
-const int maxRaindrops = 75;
+const int maxRaindrops = 5;
 const int maxClouds = 5;
 bool pause = false;
+bool flag = true;
 
 class Cloud {
 public:
@@ -75,6 +78,9 @@ const bool checkCollisionBirdRain(Bird& bird, Raindrop& raindrop) {
 Bird bird;
 
 int main() {
+
+    float finalTime = 0.0f;
+
     bird.x = screenWidth / 2;
     bird.y = screenHeight - 75;
     bird.speedX = 10;
@@ -83,13 +89,13 @@ int main() {
     InitWindow(screenWidth, screenHeight, "Flappy Quiz");
     SetTargetFPS(60);
 
-	for (size_t i = 0; i < maxClouds; i++) {
-		cloud.position.x = GetRandomValue(0, screenWidth);
-		cloud.position.y = GetRandomValue(0, screenHeight);
-		cloud.color = cloud_c;
-		cloud.speed = GetRandomValue(40, 50) * 0.1;
-		clouds.push_back(cloud);
-	}
+    for (size_t i = 0; i < maxClouds; i++) {
+        cloud.position.x = GetRandomValue(0, screenWidth);
+        cloud.position.y = GetRandomValue(0, screenHeight);
+        cloud.color = cloud_c;
+        cloud.speed = GetRandomValue(40, 50) * 0.1;
+        clouds.push_back(cloud);
+    }
 
     for (size_t i = 0; i < maxRaindrops; i++) {
         raindrop.position.x = GetRandomValue(0, screenWidth);
@@ -139,11 +145,25 @@ int main() {
                 DrawCircleV(raindrops[i].position, 10, raindrops[i].color);
             }
             DrawText(TextFormat("%.2f", currentTime), 30, 45, 100, YELLOW);
+            finalTime = currentTime;
         }
         if (pause) {
             DrawText("TEST YOUR KNOWLEDGE!", screenWidth / 2 - 650, screenHeight - 620, 100, BLACK);
             DrawText("ANSWER A QUESTION TO SAVE YOURSELF!", screenWidth / 2 - 820, screenHeight - 470, 75, BLACK);
             DrawText("THE QUESTION WILL APPEAR ON THE CONSOLE.", screenWidth / 2 - 640, screenHeight - 350, 50, BLACK);
+
+            bool checkAnswer = false;
+            question(checkAnswer);
+
+            if (checkAnswer) {
+                pause = false;
+            }
+
+            else {
+                pause = true;
+                std::cout << "Your final time is: " << std::setiosflags(std::ios::fixed) << std::setprecision(2) << finalTime << " s." << std::endl;
+                break;
+            }
         }
         else {
             bird.draw();

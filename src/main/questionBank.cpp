@@ -1,10 +1,12 @@
 #include <iostream>
+#include <random>
 #include <vector>
-
+#include <string>
+#include "questionBank.h"
 
 std::vector<std::string> questions = {
 	"In which process do plants release carbon dioxide?",
-    "Is it true that the kidneys are part of the digestive system?",
+	"Is it true that the kidneys are part of the digestive system?",
 	"What type of cell is characterized by a permanent vacuole?",
 	"What is the only liquid metal?",
 	"What do we call a substance that changes the rate of a chemical reaction?",
@@ -107,3 +109,24 @@ std::vector<std::string> answers = {
 	"The group",
 	"No"
 };
+
+void question(bool& checkAnswer) {
+	int random;
+	std::string playerAnswer;
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<int> distribution(0, 48);
+	random = distribution(gen);
+	std::cout << std::endl;
+	std::cout << "Your question is: " << questions[random] << std::endl;
+	std::getline(std::cin, playerAnswer);
+	if (playerAnswer == answers[random]) {
+		std::cout << "Congratulations! Your answer is correct! You may continue the game!" << std::endl;
+		checkAnswer = true;
+	}
+	else {
+		std::cout << "Sorry, your answer is incorrect! Your bird is burnt! Try again!" << std::endl;
+		std::cout << "The correct answer to your question was: " << answers[random] << std::endl;
+		checkAnswer = false;
+	}
+}
