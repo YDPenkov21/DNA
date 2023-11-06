@@ -117,13 +117,16 @@ void question(bool& checkAnswer) {
 	std::mt19937 gen(rd());
 	std::uniform_int_distribution<int> distribution(0, 48);
 	random = distribution(gen);
+
 	std::cout << std::endl;
 	std::cout << "Your question is: " << questions[random] << std::endl;
 	std::getline(std::cin, playerAnswer);
+
 	if (playerAnswer == answers[random]) {
 		std::cout << "Congratulations! Your answer is correct! You may continue the game!" << std::endl;
 		checkAnswer = true;
 	}
+
 	else {
 		std::cout << "Sorry, your answer is incorrect! Your bird is burnt! Try again!" << std::endl;
 		std::cout << "The correct answer to your question was: " << answers[random] << std::endl;

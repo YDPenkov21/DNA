@@ -5,16 +5,26 @@
 #include "game.h"
 #include "questionBank.h"
 
-Color sky_c = Color{ 85, 111, 122, 255 };
-Color cloud_c = Color{ 94, 94, 94, 255 };
-Color raindrop_c = Color{ 177, 230, 54, 255 };
+Image image1; 
+Texture2D flappy1;
+Image image2;
+Texture2D flappy2;
+Image image3;
+Texture2D raindropTexture;
+Image image4;
+Texture2D cloudTexture;
+
+Color sky_c = Color { 85, 111, 122, 255 };
+Color cloud_c = Color { 94, 94, 94, 255 };
+Color raindrop_c = Color { 177, 230, 54, 255 };
 
 const int screenWidth = 1920;
 const int screenHeight = 975;
-const int maxRaindrops = 5;
+const int maxRaindrops = 40;
 const int maxClouds = 5;
 bool pause = false;
-bool flag = true;
+float finalTime = 0.0f;
+float currentTime = 0.0f;
 
 class Cloud {
 public:
@@ -48,10 +58,6 @@ public:
     int speedX;
     float radius;
 
-    const void draw() const {
-        DrawCircle(x, y, radius, WHITE);
-    }
-
     const void update() {
         if (IsKeyDown(KEY_LEFT)) {
             x -= speedX;
@@ -67,6 +73,16 @@ public:
             x = GetScreenWidth() - radius;
         }
     }
+
+    const void draw() const {
+        if (IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_RIGHT)) {
+            DrawTextureEx(flappy2, Vector2{ x, y }, 0, -0.3f, WHITE);
+        }
+        else {
+            DrawTextureEx(flappy1, Vector2{ x, y }, 0, -0.3f, WHITE);
+        }
+    }
+
     const Rectangle getBirdCollisionRectangle() const {
         return { x - radius, y - radius, radius * 2, radius * 2 };
     }
@@ -80,14 +96,26 @@ Bird bird;
 
 void game() {
 
-    float finalTime = 0.0f;
-
     bird.x = screenWidth / 2;
     bird.y = screenHeight - 75;
     bird.speedX = 10;
     bird.radius = 25;
 
     InitWindow(screenWidth, screenHeight, "Flappy Quiz");
+
+    image1 = LoadImage("sprites/flappy_1.png");
+    flappy1 = LoadTextureFromImage(image1);
+    UnloadImage(image1);
+    image2 = LoadImage("sprites/flappy_2.png");
+    flappy2 = LoadTextureFromImage(image2);
+    UnloadImage(image2);
+    image3 = LoadImage("sprites/raindrop.png");
+    raindropTexture = LoadTextureFromImage(image3);
+    UnloadImage(image3);
+    image4 = LoadImage("sprites/cloud.png");
+    cloudTexture = LoadTextureFromImage(image4);
+    UnloadImage(image4);
+
     SetTargetFPS(60);
 
     for (size_t i = 0; i < maxClouds; i++) {
@@ -106,6 +134,13 @@ void game() {
         raindrops.push_back(raindrop);
     }
 
+    std::cout << std::endl;
+    std::cout << "FLAPPY QUIZ" << std::endl;
+    std::cout << std::endl;
+    std::cout << "TEST YOUR KNOWLEDGE!" << std::endl;
+    std::cout << "ANSWER A QUESTION TO SAVE YOURSELF!" << std::endl;
+    std::cout << "THE QUESTION WILL APPEAR ON THE CONSOLE." << std::endl;
+
     while (!WindowShouldClose()) {
 
         BeginDrawing();
@@ -116,8 +151,9 @@ void game() {
 
         bird.update();
 
+		currentTime = GetTime();
+
         if (!pause) {
-            float currentTime = GetTime();
             for (size_t i = 0; i < clouds.size(); i++) {
                 clouds[i].position.y += clouds[i].speed;
 
@@ -127,7 +163,7 @@ void game() {
                     clouds[i].size.y = GetRandomValue(200, 250);
                     clouds[i].size.x = GetRandomValue(220, 270);
                 }
-                DrawRectangleV(clouds[i].position, clouds[i].size, cloud_c);
+                DrawTextureEx(cloudTexture, clouds[i].position, 0, -0.6f, cloud_c);
             }
 
             for (size_t i = 0; i < raindrops.size(); i++) {
@@ -143,15 +179,13 @@ void game() {
                     raindrops[i].position.y = 0;
                     raindrops[i].position.x = GetRandomValue(0, screenWidth);
                 }
-                DrawCircleV(raindrops[i].position, 10, raindrops[i].color);
+                DrawTextureEx(raindropTexture, raindrops[i].position, 0, -0.12f, raindrops[i].color);
             }
             DrawText(TextFormat("%.2f", currentTime), 30, 45, 100, YELLOW);
             finalTime = currentTime;
         }
+
         if (pause) {
-            DrawText("TEST YOUR KNOWLEDGE!", screenWidth / 2 - 650, screenHeight - 620, 100, BLACK);
-            DrawText("ANSWER A QUESTION TO SAVE YOURSELF!", screenWidth / 2 - 820, screenHeight - 470, 75, BLACK);
-            DrawText("THE QUESTION WILL APPEAR ON THE CONSOLE.", screenWidth / 2 - 640, screenHeight - 350, 50, BLACK);
 
             bool checkAnswer = false;
             question(checkAnswer);
@@ -172,6 +206,11 @@ void game() {
 
         EndDrawing();
     }
+
+    UnloadTexture(flappy1);
+    UnloadTexture(flappy2);
+    UnloadTexture(raindropTexture);
+    UnloadTexture(cloudTexture);
 
     CloseWindow();
 }
