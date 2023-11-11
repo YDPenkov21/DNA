@@ -4,6 +4,7 @@
 #include "raylib.h"
 #include "game.h"
 #include "questionBank.h"
+#include "rules.h"
 
 Image image1; 
 Texture2D flappy1;
@@ -20,11 +21,14 @@ Color raindrop_c = Color { 177, 230, 54, 255 };
 
 const int screenWidth = 1920;
 const int screenHeight = 975;
-const int maxRaindrops = 3;
+const int maxRaindrops = 40;
 const int maxClouds = 5;
+bool mainMenu = false;
 bool pause = false;
-float finalTime = 0.0f;
+bool pauseMenu = false;
 float currentTime = 0.0f;
+float elapsedTime = currentTime;
+int answeredQuestions = 0;
 int wing = 110;
 
 class Cloud {
@@ -102,11 +106,20 @@ bool checkCollisionWings(Bird& bird, Raindrop& raindrop) {
 bool checkCollisionTail(Bird& bird, Raindrop& raindrop) {
     return CheckCollisionCircleRec(raindrop.position, raindrop.radius, bird.tail);
 }
+bool checkCollisionPointRec(Vector2 point, Rectangle rec) {
+    return (point.x >= rec.x && point.x <= (rec.x + rec.width) &&
+        point.y >= rec.y && point.y <= (rec.y + rec.height));
+}
 
 Bird bird;
 
 void game() {
-    bird.x = screenWidth / 2;
+
+    Rectangle playButton = { (screenWidth / 2) - 120, (screenHeight / 2) + 100, 250, 100 };
+    Rectangle rulesButton = { (screenWidth / 2) - 120, (screenHeight / 2) + 250, 250, 100 };
+    Rectangle returnButton = { (screenWidth / 2) - 120, (screenHeight / 2) + 250, 250, 100 };
+
+    bird.x = screenWidth / 2.0;
     bird.y = screenHeight - 40;
     bird.head = { (bird.x) - 40, (bird.y) - 90, 20, 10 };
     bird.wings = { (bird.x) - 90, (bird.y) - 55, 100, 5 };
@@ -118,6 +131,8 @@ void game() {
     raindrop.radius = 1;
 
     InitWindow(screenWidth, screenHeight, "Flappy Quiz");
+
+    currentTime = GetTime();
 
     image1 = LoadImage("sprites/flappy_1.png");
     flappy1 = LoadTextureFromImage(image1);
@@ -131,6 +146,21 @@ void game() {
     image4 = LoadImage("sprites/cloud.png");
     cloudTexture = LoadTextureFromImage(image4);
     UnloadImage(image4);
+
+    Image background = LoadImage("images/background.png");
+    ImageResize(&background, screenWidth, screenHeight);
+	Texture2D resizedTexture = LoadTextureFromImage(background);
+    UnloadImage(background);
+
+    Image rulesBackground = LoadImage("images/rules_background.png");
+    ImageResize(&rulesBackground, screenWidth, screenHeight);
+    Texture2D resizedRules = LoadTextureFromImage(rulesBackground);
+    UnloadImage(rulesBackground);
+
+    Image logo = LoadImage("images/DNA.png");
+    ImageResize(&logo, 200, 150);
+    Texture2D resizedLogo = LoadTextureFromImage(logo);
+    UnloadImage(logo);
 
     SetTargetFPS(60);
 
@@ -162,65 +192,121 @@ void game() {
 
         BeginDrawing();
 
-        ClearBackground(sky_c);
+        if (!mainMenu) {
+            if (!pauseMenu) {
+                DrawTexture(resizedTexture, 0, 0, WHITE);
 
-        DrawFPS(15, 20);
+                for (size_t i = 0; i < raindrops.size(); i++) {
+                    raindrops[i].position.y += raindrops[i].speed;
 
-        bird.update();
-
-		currentTime = GetTime();
-
-        if (!pause) {
-            for (size_t i = 0; i < clouds.size(); i++) {
-                clouds[i].position.y += clouds[i].speed;
-
-                if (clouds[i].position.y > screenHeight) {
-                    clouds[i].position.y = 0;
-                    clouds[i].position.x = GetRandomValue(0, screenWidth);
-                    clouds[i].size.y = GetRandomValue(200, 250);
-                    clouds[i].size.x = GetRandomValue(220, 270);
+                    if (raindrops[i].position.y > screenHeight) {
+                        raindrops[i].position.y = 0;
+                        raindrops[i].position.x = GetRandomValue(0, screenWidth);
+                    }
+                    DrawTextureEx(raindropTexture, raindrops[i].position, 0, -0.1f, raindrops[i].color);
                 }
-                DrawTextureEx(cloudTexture, clouds[i].position, 0, -0.6f, cloud_c);
+
+                Vector2 mousePosition = GetMousePosition();
+                bool isMouseOverButtonPlay = checkCollisionPointRec(mousePosition, playButton);
+
+                DrawRectangleRec(playButton, (isMouseOverButtonPlay ? SKYBLUE : BLUE));
+                DrawText("PLAY", (screenWidth / 2) - 60, (screenHeight / 2) + 130, 50, BLACK);
+
+                if (isMouseOverButtonPlay && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+                    mainMenu = true;
+                }
+
+                bool isMouseOverButtonRules = checkCollisionPointRec(mousePosition, rulesButton);
+
+                DrawRectangleRec(rulesButton, (isMouseOverButtonRules ? GREEN : DARKGREEN));
+                DrawText("RULES", (screenWidth / 2) - 75, (screenHeight / 2) + 280, 50, BLACK);
+
+                if (isMouseOverButtonRules && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+                    pauseMenu = true;
+                }
+            }
+            else if (pauseMenu) {
+                DrawTexture(resizedRules, 0, 0, WHITE);
+                
+                rules();
+
+                Vector2 mousePosition = GetMousePosition();
+
+                bool isMouseOverButtonReturn = checkCollisionPointRec(mousePosition, returnButton);
+
+                DrawRectangleRec(returnButton, (isMouseOverButtonReturn ? GREEN : DARKGREEN));
+                DrawText("RETURN", (screenWidth / 2) - 95, (screenHeight / 2) + 280, 50, BLACK);
+
+                if (isMouseOverButtonReturn && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+                    pauseMenu = false;
+                }
+            }
+            DrawTexture(resizedLogo, screenWidth - 190, screenHeight -  170, WHITE);
+        }
+
+        else if (mainMenu) {
+            ClearBackground(sky_c);
+
+            DrawFPS(15, 20);
+
+            bird.update();
+
+            elapsedTime -= currentTime / 1.95;
+
+            if (!pause) {
+                for (size_t i = 0; i < clouds.size(); i++) {
+                    clouds[i].position.y += clouds[i].speed;
+
+                    if (clouds[i].position.y > screenHeight) {
+                        clouds[i].position.y = 0;
+                        clouds[i].position.x = GetRandomValue(0, screenWidth);
+                        clouds[i].size.y = GetRandomValue(200, 250);
+                        clouds[i].size.x = GetRandomValue(220, 270);
+                    }
+                    DrawTextureEx(cloudTexture, clouds[i].position, 0, -0.6f, cloud_c);
+                }
+
+                for (size_t i = 0; i < raindrops.size(); i++) {
+                    raindrops[i].position.y += raindrops[i].speed;
+
+                    if (raindrops[i].position.y > screenHeight) {
+                        raindrops[i].position.y = 0;
+                        raindrops[i].position.x = GetRandomValue(0, screenWidth);
+                    }
+
+                    if (checkCollisionHead(bird, raindrops[i]) || checkCollisionWings(bird, raindrops[i]) || checkCollisionTail(bird, raindrops[i])) {
+                        pause = true;
+                        raindrops[i].position.y = 0;
+                        raindrops[i].position.x = GetRandomValue(0, screenWidth);
+                    }
+                    DrawTextureEx(raindropTexture, raindrops[i].position, 0, -0.1f, raindrops[i].color);
+                }
+                DrawText(TextFormat("%.2f", abs(elapsedTime) / 10), 30, 45, 100, YELLOW);
+                DrawText("Score: ", 30, 130, 50, YELLOW);
+                DrawText(TextFormat("%i", answeredQuestions), 200, 130, 50, YELLOW);
             }
 
-            for (size_t i = 0; i < raindrops.size(); i++) {
-                raindrops[i].position.y += raindrops[i].speed;
+            if (pause) {
 
-                if (raindrops[i].position.y > screenHeight) {
-                    raindrops[i].position.y = 0;
-                    raindrops[i].position.x = GetRandomValue(0, screenWidth);
+                bool checkAnswer = false;
+                question(checkAnswer);
+
+                if (checkAnswer) {
+                    pause = false;
+                    answeredQuestions++;
                 }
 
-                if (checkCollisionHead(bird, raindrops[i]) || checkCollisionWings(bird, raindrops[i]) || checkCollisionTail(bird, raindrops[i])) {
+                else {
                     pause = true;
-                    raindrops[i].position.y = 0;
-                    raindrops[i].position.x = GetRandomValue(0, screenWidth);
+                    std::cout << "Your final time is: " << std::setiosflags(std::ios::fixed) << std::setprecision(2) << abs(elapsedTime) / 10 << " s." << std::endl;
+                    std::cout << "You answered: " << answeredQuestions << " questions!" << std::endl;
+                    break;
                 }
-                DrawTextureEx(raindropTexture, raindrops[i].position, 0, -0.1f, raindrops[i].color);
             }
-            DrawText(TextFormat("%.2f", currentTime), 30, 45, 100, YELLOW);
-            finalTime = currentTime;
-        }
-
-        if (pause) {
-
-            bool checkAnswer = false;
-            question(checkAnswer);
-
-            if (checkAnswer) {
-                pause = false;
-            }
-
             else {
-                pause = true;
-                std::cout << "Your final time is: " << std::setiosflags(std::ios::fixed) << std::setprecision(2) << finalTime << " s." << std::endl;
-                break;
+                bird.draw();
             }
         }
-        else {
-            bird.draw();
-        }
-
         EndDrawing();
     }
 
@@ -228,6 +314,7 @@ void game() {
     UnloadTexture(flappy2);
     UnloadTexture(raindropTexture);
     UnloadTexture(cloudTexture);
+    UnloadTexture(resizedTexture);
 
     CloseWindow();
 }
