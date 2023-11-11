@@ -20,11 +20,12 @@ Color raindrop_c = Color { 177, 230, 54, 255 };
 
 const int screenWidth = 1920;
 const int screenHeight = 975;
-const int maxRaindrops = 40;
+const int maxRaindrops = 3;
 const int maxClouds = 5;
 bool pause = false;
 float finalTime = 0.0f;
 float currentTime = 0.0f;
+int wing = 110;
 
 class Cloud {
 public:
@@ -41,11 +42,8 @@ class Raindrop {
 public:
     Vector2 position;
     Color color;
+    float radius;
     float speed;
-
-    const Rectangle getCollisionRectangle() const {
-        return { position.x, position.y, 1, 1 };
-    }
 };
 
 std::vector<Raindrop> raindrops;
@@ -53,53 +51,71 @@ Raindrop raindrop;
 
 class Bird : public Raindrop {
 public:
+    Rectangle head;
+    Rectangle wings;
+    Rectangle tail;
     float x;
     float y;
     int speedX;
     float radius;
+    float wingLength;
 
     const void update() {
         if (IsKeyDown(KEY_LEFT)) {
             x -= speedX;
+            head.x -= speedX;
+            wings.x -= speedX;
+            tail.x -= speedX;
         }
         else if (IsKeyDown(KEY_RIGHT)) {
             x += speedX;
+            head.x += speedX;
+            wings.x += speedX;
+            tail.x += speedX;
         }
 
-        if (x - radius <= 0) {
-            x = radius;
+        if (x - wing <= 0) {
+            x = wing;
         }
-        else if (x + radius >= GetScreenWidth()) {
-            x = GetScreenWidth() - radius;
+
+        else if (x >= screenWidth) {
+            x = screenWidth;
         }
     }
 
     const void draw() const {
         if (IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_RIGHT)) {
-            DrawTextureEx(flappy2, Vector2{ x, y }, 0, -0.3f, WHITE);
+            DrawTextureEx(flappy2, Vector2{ x, y }, 0, -0.2f, WHITE);
         }
         else {
-            DrawTextureEx(flappy1, Vector2{ x, y }, 0, -0.3f, WHITE);
+            DrawTextureEx(flappy1, Vector2{ x, y }, 0, -0.2f, WHITE);
         }
-    }
-
-    const Rectangle getBirdCollisionRectangle() const {
-        return { x - radius, y - radius, radius * 2, radius * 2 };
     }
 };
 
-const bool checkCollisionBirdRain(Bird& bird, Raindrop& raindrop) {
-    return CheckCollisionRecs(bird.getBirdCollisionRectangle(), raindrop.getCollisionRectangle());
+bool checkCollisionHead(Bird& bird, Raindrop& raindrop) {
+    return CheckCollisionCircleRec(raindrop.position, raindrop.radius, bird.head);
+}
+bool checkCollisionWings(Bird& bird, Raindrop& raindrop) {
+    return CheckCollisionCircleRec(raindrop.position, raindrop.radius, bird.wings);
+}
+bool checkCollisionTail(Bird& bird, Raindrop& raindrop) {
+    return CheckCollisionCircleRec(raindrop.position, raindrop.radius, bird.tail);
 }
 
 Bird bird;
 
 void game() {
-
     bird.x = screenWidth / 2;
-    bird.y = screenHeight - 75;
+    bird.y = screenHeight - 40;
+    bird.head = { (bird.x) - 40, (bird.y) - 90, 20, 10 };
+    bird.wings = { (bird.x) - 90, (bird.y) - 55, 100, 5 };
+    bird.tail = { (bird.x) - 20, bird.y, 5, 10 };
     bird.speedX = 10;
-    bird.radius = 25;
+    bird.radius = 50;
+    bird.wingLength = 15;
+
+    raindrop.radius = 1;
 
     InitWindow(screenWidth, screenHeight, "Flappy Quiz");
 
@@ -140,6 +156,7 @@ void game() {
     std::cout << "TEST YOUR KNOWLEDGE!" << std::endl;
     std::cout << "ANSWER A QUESTION TO SAVE YOURSELF!" << std::endl;
     std::cout << "THE QUESTION WILL APPEAR ON THE CONSOLE." << std::endl;
+    std::cout << "NOTE! Please write your answers with a capital letter!" << std::endl;
 
     while (!WindowShouldClose()) {
 
@@ -174,12 +191,12 @@ void game() {
                     raindrops[i].position.x = GetRandomValue(0, screenWidth);
                 }
 
-                if (checkCollisionBirdRain(bird, raindrops[i])) {
+                if (checkCollisionHead(bird, raindrops[i]) || checkCollisionWings(bird, raindrops[i]) || checkCollisionTail(bird, raindrops[i])) {
                     pause = true;
                     raindrops[i].position.y = 0;
                     raindrops[i].position.x = GetRandomValue(0, screenWidth);
                 }
-                DrawTextureEx(raindropTexture, raindrops[i].position, 0, -0.12f, raindrops[i].color);
+                DrawTextureEx(raindropTexture, raindrops[i].position, 0, -0.1f, raindrops[i].color);
             }
             DrawText(TextFormat("%.2f", currentTime), 30, 45, 100, YELLOW);
             finalTime = currentTime;
