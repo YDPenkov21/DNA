@@ -172,7 +172,7 @@ void game() {
     // Start the timer.
     currentTime = GetTime();
 
-    // Load the main images.
+    // Load the sprites.
     image1 = LoadImage("sprites/flappy_1.png");
     flappy1 = LoadTextureFromImage(image1);
     UnloadImage(image1);
@@ -214,7 +214,6 @@ void game() {
 
     // Set target FPS to 60 frames per second.
     SetTargetFPS(60);
-
 
     // Set up cloud mechanism.
     for (size_t i = 0; i < maxClouds; i++) {
