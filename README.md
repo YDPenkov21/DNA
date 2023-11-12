@@ -110,3 +110,4 @@
 <h4 align="center"> Made with ❤️, C++ & Raylib </h4>
 <hr>
 <h4 align="center"> Created by team DNA | &copy 2023 All rights reserved.</h4>
+<h1 align="center">Thanks for checking out our repo, show us some ❤️ by giving our repo a ⭐️!</h1>
