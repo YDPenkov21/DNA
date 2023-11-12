@@ -131,6 +131,11 @@ void game() {
     raindrop.radius = 1;
 
     InitWindow(screenWidth, screenHeight, "Flappy Quiz");
+    InitAudioDevice();
+
+    Music music = LoadMusicStream("audio/game_song.mp3");
+    bool isSoundPlaying = false;
+    bool showMusicIcon = false;
 
     currentTime = GetTime();
 
@@ -162,6 +167,11 @@ void game() {
     Texture2D resizedLogo = LoadTextureFromImage(logo);
     UnloadImage(logo);
 
+    Image eighthNote = LoadImage("images/eighth_note.png");
+    ImageResize(&eighthNote, 50, 50);
+    Texture2D resizedNote = LoadTextureFromImage(eighthNote);
+    UnloadImage(eighthNote);
+
     SetTargetFPS(60);
 
     for (size_t i = 0; i < maxClouds; i++) {
@@ -192,9 +202,31 @@ void game() {
 
         BeginDrawing();
 
+        if (IsKeyPressed(KEY_P)) {
+            if (isSoundPlaying) {
+                StopMusicStream(music);
+                showMusicIcon = false;
+            }
+            else {
+                PlayMusicStream(music);
+                showMusicIcon = true;
+            }
+            isSoundPlaying = !isSoundPlaying;
+        }
+        
+        UpdateMusicStream(music);
         if (!mainMenu) {
             if (!pauseMenu) {
                 DrawTexture(resizedTexture, 0, 0, WHITE);
+
+                if (showMusicIcon) {
+                    DrawCircle(screenWidth - 50,50, 40, GREEN);
+                    DrawTexture(resizedNote, screenWidth - 75, 25, BLACK);
+                }
+                else if (!showMusicIcon) {
+                    DrawCircle(screenWidth - 50,50, 40, RED);
+					DrawTexture(resizedNote, screenWidth - 75, 25, BLACK);
+                }
 
                 for (size_t i = 0; i < raindrops.size(); i++) {
                     raindrops[i].position.y += raindrops[i].speed;
@@ -227,6 +259,15 @@ void game() {
             }
             else if (pauseMenu) {
                 DrawTexture(resizedRules, 0, 0, WHITE);
+
+                if (showMusicIcon) {
+                    DrawCircle(screenWidth - 50, 50, 40, GREEN);
+                    DrawTexture(resizedNote, screenWidth - 75, 25, BLACK);
+                }
+                else if (!showMusicIcon) {
+                    DrawCircle(screenWidth - 50, 50, 40, RED);
+                    DrawTexture(resizedNote, screenWidth - 75, 25, BLACK);
+                }
                 
                 rules();
 
@@ -284,6 +325,14 @@ void game() {
                 DrawText(TextFormat("%.2f", abs(elapsedTime) / 10), 30, 45, 100, YELLOW);
                 DrawText("Score: ", 30, 130, 50, YELLOW);
                 DrawText(TextFormat("%i", answeredQuestions), 200, 130, 50, YELLOW);
+                if (showMusicIcon) {
+                    DrawCircle(screenWidth - 50, 50, 40, GREEN);
+                    DrawTexture(resizedNote, screenWidth - 75, 25, BLACK);
+                }
+                else if (!showMusicIcon) {
+                    DrawCircle(screenWidth - 50, 50, 40, RED);
+                    DrawTexture(resizedNote, screenWidth - 75, 25, BLACK);
+                }
             }
 
             if (pause) {
@@ -306,6 +355,7 @@ void game() {
             else {
                 bird.draw();
             }
+            
         }
         EndDrawing();
     }
@@ -315,6 +365,9 @@ void game() {
     UnloadTexture(raindropTexture);
     UnloadTexture(cloudTexture);
     UnloadTexture(resizedTexture);
+    UnloadTexture(resizedNote);
+    UnloadMusicStream(music);
 
+    CloseAudioDevice();
     CloseWindow();
 }

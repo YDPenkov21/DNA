@@ -12,5 +12,6 @@ void rules() {
     DrawText("7) For questions requiring numerical answers, use numbers instead of words.", 50, 420, 20, RAYWHITE);
     DrawText("8) You're playing against time and aiming for the highest score in terms of both time and answered questions. Your time and score are displayed in the top-left corner of the window.", 50, 470, 20, RAYWHITE);
     DrawText("9) Control your avatar using the Left and Right arrow keys.", 50, 520, 20, RAYWHITE);
-    DrawText("10) Enjoy learning with our game 'Flappy Quiz'!", 50, 570, 20, RAYWHITE);
+    DrawText("10) Play the aesthetic game music using the 'P' key on your keyboard.", 50, 520, 20, RAYWHITE);
+    DrawText("11) Enjoy learning with our game 'Flappy Quiz'!", 50, 570, 20, RAYWHITE);
 }
