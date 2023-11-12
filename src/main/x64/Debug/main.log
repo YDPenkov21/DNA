@@ -1,20 +1,17 @@
 ﻿  game.cpp
-C:\Users\HP\OneDrive\Работен плот\DNA\src\main\game.cpp(98,17): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\HP\OneDrive\Работен плот\DNA\src\main\game.cpp(172,26): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\HP\OneDrive\Работен плот\DNA\src\main\game.cpp(214,42): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\HP\OneDrive\Работен плот\DNA\src\main\game.cpp(215,42): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\HP\OneDrive\Работен плот\DNA\src\main\game.cpp(217,46): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\HP\OneDrive\Работен плот\DNA\src\main\game.cpp(223,45): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\HP\OneDrive\Работен плот\DNA\src\main\game.cpp(224,45): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\HP\OneDrive\Работен плот\DNA\src\main\game.cpp(226,49): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\HP\OneDrive\Работен плот\DNA\src\main\game.cpp(275,65): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\HP\OneDrive\Работен плот\DNA\src\main\game.cpp(332,40): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
-C:\Users\HP\OneDrive\Работен плот\DNA\src\main\game.cpp(340,62): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\HP\OneDrive\Работен плот\DNA\src\main\game.cpp(341,58): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\HP\OneDrive\Работен плот\DNA\src\main\game.cpp(342,58): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\HP\OneDrive\Работен плот\DNA\src\main\game.cpp(352,65): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\HP\OneDrive\Работен плот\DNA\src\main\game.cpp(358,65): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-  main.cpp
-  rules.cpp
-  Generating Code...
-  main.vcxproj -> C:\Users\HP\OneDrive\Работен плот\DNA\src\x64\Debug\main.exe
+C:\Users\krist\Desktop\DNA\src\main\game.cpp(98,17): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\krist\Desktop\DNA\src\main\game.cpp(173,26): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\krist\Desktop\DNA\src\main\game.cpp(220,42): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\krist\Desktop\DNA\src\main\game.cpp(221,42): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\krist\Desktop\DNA\src\main\game.cpp(223,46): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\krist\Desktop\DNA\src\main\game.cpp(229,45): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\krist\Desktop\DNA\src\main\game.cpp(230,45): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\krist\Desktop\DNA\src\main\game.cpp(232,49): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\krist\Desktop\DNA\src\main\game.cpp(286,65): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\krist\Desktop\DNA\src\main\game.cpp(362,40): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\krist\Desktop\DNA\src\main\game.cpp(372,62): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\krist\Desktop\DNA\src\main\game.cpp(373,58): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\krist\Desktop\DNA\src\main\game.cpp(374,58): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\krist\Desktop\DNA\src\main\game.cpp(385,65): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\krist\Desktop\DNA\src\main\game.cpp(392,65): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  main.vcxproj -> C:\Users\krist\Desktop\DNA\src\x64\Debug\main.exe

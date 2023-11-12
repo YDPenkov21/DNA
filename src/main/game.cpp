@@ -207,6 +207,11 @@ void game() {
     Texture2D resizedNote = LoadTextureFromImage(eighthNote);
     UnloadImage(eighthNote);
 
+    Image gameLogo = LoadImage("images/game_logo.png");
+    ImageResize(&gameLogo, 500, 500);
+    Texture2D resizedGameLogo = LoadTextureFromImage(gameLogo);
+    UnloadImage(gameLogo);
+
     // Set target FPS to 60 frames per second.
     SetTargetFPS(60);
 
@@ -261,7 +266,7 @@ void game() {
         if (!mainMenu) {
             if (!pauseMenu) {
                 DrawTexture(resizedTexture, 0, 0, WHITE);
-
+                
                 // Display the music icon in different colours if currently playing or not.
                 if (showMusicIcon) {
                     DrawCircle(screenWidth - 50,50, 40, GREEN);
@@ -307,6 +312,9 @@ void game() {
                 if (isMouseOverButtonRules && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
                     pauseMenu = true;
                 }
+
+                // Draw logo of the game.
+                DrawTexture(resizedGameLogo, (screenWidth / 2) - 250, (screenHeight / 2) - 400, WHITE);
             }
 
             // Show the rules of the game.
