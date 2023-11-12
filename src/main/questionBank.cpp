@@ -1,9 +1,11 @@
+// Include the needed header files.
 #include <iostream>
 #include <random>
 #include <vector>
 #include <string>
 #include "questionBank.h"
 
+// Declare the questions container.
 std::vector<std::string> questions = {
 	"In which process do plants release carbon dioxide?",
 	"Is it true that the kidneys are part of the digestive system?",
@@ -57,6 +59,7 @@ std::vector<std::string> questions = {
 	"Ions are positively, negatively, or neutrally charged?"
 };
 
+// Declare the answers container.
 std::vector<std::string> answers = {
 	"Respiration",
 	"No",
@@ -110,7 +113,9 @@ std::vector<std::string> answers = {
 	"No"
 };
 
+// Declare the question function.
 void question(bool& checkAnswer) {
+	// Set up random number generator.
 	int random;
 	std::string playerAnswer;
 	std::random_device rd;
@@ -118,15 +123,18 @@ void question(bool& checkAnswer) {
 	std::uniform_int_distribution<int> distribution(0, 48);
 	random = distribution(gen);
 
+	// Output message and request for the user to input a value.
 	std::cout << std::endl;
 	std::cout << "Your question is: " << questions[random] << std::endl;
 	std::getline(std::cin, playerAnswer);
 
+	// Logic to check if the user's input is correct.
 	if (playerAnswer == answers[random]) {
 		std::cout << "Congratulations! Your answer is correct! You may continue the game!" << std::endl;
 		checkAnswer = true;
 	}
 
+	// Logic to check if the user's input is incorrect.
 	else {
 		std::cout << "Sorry, your answer is incorrect! Your bird is burnt! Try again!" << std::endl;
 		std::cout << "The correct answer to your question was: " << answers[random] << std::endl;

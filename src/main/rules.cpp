@@ -1,7 +1,10 @@
+// Include the needed header files.
 #include "raylib.h"
 #include "rules.h"
 
+// Declare the rules function.
 void rules() {
+    //Draw the rules.
     DrawText("The 'Flappy Quiz' Rules:", GetScreenWidth() / 2 - MeasureText("The 'Flappy Quiz' Rules:", 30) / 2, 50, 30, GOLD);
     DrawText("1) The primary objective of the game is to enhance your knowledge of ecology, chemistry, and biology!", 50, 120, 20, RAYWHITE);
     DrawText("2) In order for you to learn you must keep your feathered friend alive by skillfully avoiding the falling acid raindrops.", 50, 170, 20, RAYWHITE);
@@ -12,6 +15,6 @@ void rules() {
     DrawText("7) For questions requiring numerical answers, use numbers instead of words.", 50, 420, 20, RAYWHITE);
     DrawText("8) You're playing against time and aiming for the highest score in terms of both time and answered questions. Your time and score are displayed in the top-left corner of the window.", 50, 470, 20, RAYWHITE);
     DrawText("9) Control your avatar using the Left and Right arrow keys.", 50, 520, 20, RAYWHITE);
-    DrawText("10) Play the aesthetic game music using the 'P' key on your keyboard.", 50, 520, 20, RAYWHITE);
-    DrawText("11) Enjoy learning with our game 'Flappy Quiz'!", 50, 570, 20, RAYWHITE);
+    DrawText("10) Play the aesthetic game music using the 'P' key on your keyboard.", 50, 570, 20, RAYWHITE);
+    DrawText("11) Enjoy learning with our game 'Flappy Quiz'!", 50, 620, 20, RAYWHITE);
 }
