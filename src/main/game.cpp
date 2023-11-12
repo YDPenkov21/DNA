@@ -215,6 +215,7 @@ void game() {
     // Set target FPS to 60 frames per second.
     SetTargetFPS(60);
 
+
     // Set up cloud mechanism.
     for (size_t i = 0; i < maxClouds; i++) {
         cloud.position.x = GetRandomValue(0, screenWidth);
